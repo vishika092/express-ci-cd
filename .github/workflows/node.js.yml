@@ -1,0 +1,41 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: express-ci-cd
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: self-hosted
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    - uses: actions/checkout@v3
+
+
+
+    - name: Create .env for server
+      working-directory: server
+      run: |
+        echo "$SERVER_ENV" > .env
+      env:
+        SERVER_ENV: ${{ secrets.Server_ENV }}
+
+
+    - name: Install server dependencies
+      working-directory: server
+      run: npm install
+
+    - name: Deploy and restart with PM2
+      working-directory: server
+      run: |
+      pm2 restart express-ci-cd
