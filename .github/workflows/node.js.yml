@@ -38,4 +38,4 @@ jobs:
     - name: Deploy and restart with PM2
       working-directory: server
       run: |
-      pm2 restart express-ci-cd
+        pm2 restart express-ci-cd
