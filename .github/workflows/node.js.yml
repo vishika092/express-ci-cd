@@ -1,0 +1,34 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: 
+      - "main"
+  pull_request:
+    branches: 
+      - "main"
+
+jobs:
+  build:
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        node-version: [22.x]
+    
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      - name: SERVER_ENV
+        working-directory: ./server
+        run: |
+          touch ./.env
+          echo "${{ secrets.SERVER_ENV }}" > ./.env
+
+      - name: Install server dependencies
+        working-directory: ./server
+        run: npm install
+
+      - name: Deploy and restart with PM2
+        working-directory: ./server
+        run: npm restart 
