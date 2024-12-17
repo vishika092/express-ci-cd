@@ -12,6 +12,12 @@ app.get('/', (req, res) => {
     res.send(`Welcome to express app!`);
 });
 
+
+app.get('/hello', (req, res) => {
+    res.send(`hello world`);
+});
+
+
 app.get('/api/users/:id', (req, res) => {
     const userId = req.params.id;
     res.json({
