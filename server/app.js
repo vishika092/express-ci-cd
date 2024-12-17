@@ -18,6 +18,12 @@ app.get('/hello', (req, res) => {
 });
 
 
+app.get('/hi', (req, res) => {
+    res.send(`hi world`);
+});
+
+
+
 app.get('/api/users/:id', (req, res) => {
     const userId = req.params.id;
     res.json({
