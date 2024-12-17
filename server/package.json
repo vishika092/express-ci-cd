@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node -r dotenv/config index.js"
+    "start": "pm2 start app.js --name express-ci-cd --node-args='-r dotenv/config'",
+    "restart": "pm2 restart express-ci-cd"
   },
   "type": "module",
   "keywords": [],
